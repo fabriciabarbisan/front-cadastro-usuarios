@@ -12,9 +12,12 @@ Aplicação web para **cadastrar, listar e excluir usuários**, com avatares col
 
 - Cadastro de usuários com nome, idade e e-mail
 - Validação de campos vazios antes de enviar
-- Bloqueio de e-mails repetidos, com aviso na tela
+- Bloqueio de e-mails repetidos, com aviso na tela (no cadastro e na edição)
+- Campos do formulário limpos automaticamente depois de cadastrar
 - Listagem de todos os usuários cadastrados
+- Edição de usuários: o ícone de lápis de cada card abre o formulário já preenchido, e o botão passa a ser "Salvar Alterações"
 - Exclusão de usuários com um clique no ícone de lixeira de cada card
+- Navegação pelo teclado: o Enter avança de campo e, no último, cadastra o usuário ou salva as alterações
 - Avatar gerado a partir do nome, com cor pastel fixa para cada usuário
 - Balões de aviso (sucesso, erro e alerta) com `react-toastify`
 

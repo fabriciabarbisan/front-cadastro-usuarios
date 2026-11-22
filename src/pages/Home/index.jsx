@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import api from '../../services/api.js'
 import { Container, Form, ContainerImputs, Input, InputLabel } from './styles.js'
 import Button from '../../components/Button'
@@ -15,6 +15,8 @@ function Home() {
   const inputAge = useRef()
   const inputEmail = useRef()
   const navigate = useNavigate()
+  const location = useLocation()
+  const userToEdit = location.state?.user
 
   async function registerNewUser() {
 
@@ -23,14 +25,26 @@ function Home() {
       return
     }
 
-    try {
-      await api.post('/usuarios', {
-        email: inputEmail.current.value,
-        name: inputName.current.value,
-        age: parseInt(inputAge.current.value)
-      })
+    const data = {
+      email: inputEmail.current.value,
+      name: inputName.current.value,
+      age: parseInt(inputAge.current.value)
+    }
 
-      toast.success('Usuário cadastrado com sucesso!')
+    try {
+      if (userToEdit) {
+        await api.put(`/usuarios/${userToEdit.id}`, data)
+        toast.success('Usuário atualizado com sucesso!')
+        navigate('/lista-de-usuarios')
+      } else {
+        await api.post('/usuarios', data)
+        toast.success('Usuário cadastrado com sucesso!')
+
+        inputName.current.value = ''
+        inputAge.current.value = ''
+        inputEmail.current.value = ''
+      }
+
     } catch (error) {
       if (error.response?.status === 409) {
         toast.error('Este email já está cadastrado.')
@@ -40,36 +54,50 @@ function Home() {
     }
   }
 
+  function handleKeyDown(event) {
+  if (event.key !== 'Enter' || event.target.tagName === 'BUTTON') return
+
+  event.preventDefault()
+
+  if (event.target === inputName.current) {
+    inputAge.current.focus()
+  } else if (event.target === inputAge.current) {
+    inputEmail.current.focus()
+  } else {
+    registerNewUser()
+  }
+}
+
   return (
     <Container>
 
       <TopBackground />
 
-      <Form>
+      <Form onKeyDown={handleKeyDown}>
 
-        <Title>Cadastrar Usuário</Title>
+        <Title>{userToEdit ? 'Editar Usuário' : 'Cadastrar Usuário'}</Title>
 
         <ContainerImputs>
 
           <div>
             <InputLabel>Nome<span> *</span></InputLabel>
-            <Input type="text" placeholder="Nome do Usuário" ref={inputName} />
+            <Input type="text" placeholder="Nome do Usuário" ref={inputName} defaultValue={userToEdit?.name} />
           </div>
 
           <div>
             <InputLabel>Idade<span> *</span></InputLabel>
-            <Input type="number" placeholder="Idade do Usuário" ref={inputAge} />
+            <Input type="number" placeholder="Idade do Usuário" ref={inputAge} defaultValue={userToEdit?.age} />
           </div>
 
         </ContainerImputs>
 
         <div style={{ width: '100%' }}>
           <InputLabel>Email<span> *</span></InputLabel>
-          <Input type="email" placeholder="Email do Usuário" ref={inputEmail} />
+          <Input type="email" placeholder="Email do Usuário" ref={inputEmail} defaultValue={userToEdit?.email} />
         </div>
 
         <Button type="button" theme="primary" onClick={registerNewUser}>
-          Cadastrar Usuário
+          {userToEdit ? 'Salvar Alterações' : 'Cadastrar Usuário'}
         </Button>
 
       </Form>

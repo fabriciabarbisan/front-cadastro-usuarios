@@ -95,3 +95,24 @@ export const TrashIcon = styled.img`
         opacity: 0.5;
     }
 `
+
+export const EditIcon = styled.img`
+    cursor: pointer;
+    padding-left: 10px;
+
+    &:hover {
+        opacity: 0.8;
+    }
+
+    &:active {
+        opacity: 0.5;
+    }
+`
+
+export const DivIcons = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+`

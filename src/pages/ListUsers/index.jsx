@@ -1,11 +1,12 @@
 import api from "../../services/api"
 import Button from "../../components/Button"
 import TopBackground from "../../components/TopBackground"
-import { Container, ContainerUsers, CardUsers, TrashIcon, AvatarUser, Texts } from "./styles"
+import { Container, ContainerUsers, CardUsers, TrashIcon, AvatarUser, Texts, EditIcon, DivIcons } from "./styles"
 import { useNavigate } from "react-router-dom"
 import Title from "../../components/Title"
 import { useEffect, useState } from "react"
 import Trash from "../../assets/trash.svg"
+import Edit from "../../assets/edit.svg"
 import { toast } from 'react-toastify'
 
 const cores = [
@@ -87,7 +88,10 @@ function ListUsers() {
               <p>{user.age}</p>
               <p>{user.email}</p>
             </Texts>
-            <TrashIcon src={Trash} alt="Excluir" onClick={() => deleteUser(user.id)} />
+            <DivIcons>
+              <EditIcon src={Edit} alt="Editar" onClick={() => navigate('/', { state: { user } })} />
+              <TrashIcon src={Trash} alt="Excluir" onClick={() => deleteUser(user.id)} />
+            </DivIcons>
           </CardUsers>
         ))}
       </ContainerUsers>
