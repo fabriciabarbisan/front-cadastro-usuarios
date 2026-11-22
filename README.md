@@ -14,7 +14,7 @@ Aplicação web para **cadastrar, listar e excluir usuários**, com avatares col
 - Validação de campos vazios antes de enviar
 - Bloqueio de e-mails repetidos, com aviso na tela
 - Listagem de todos os usuários cadastrados
-- Exclusão de usuários
+- Exclusão de usuários com um clique no ícone de lixeira de cada card
 - Avatar gerado a partir do nome, com cor pastel fixa para cada usuário
 - Balões de aviso (sucesso, erro e alerta) com `react-toastify`
 
@@ -38,7 +38,7 @@ Aplicação web para **cadastrar, listar e excluir usuários**, com avatares col
 - MongoDB Atlas
 - Hospedagem no Render
 
-🔗 Repositório do back-end: [back-cadastro-usuarios](https://github.com/fabriciabarbisan/back-cadastro-usuarios)
+🔗 Repositório do back-end: [back_cadastro_usuarios](https://github.com/fabriciabarbisan/back_cadastro_usuarios)
 
 ---
 
@@ -47,7 +47,7 @@ Aplicação web para **cadastrar, listar e excluir usuários**, com avatares col
 ### Pré-requisitos
 
 - [Node.js](https://nodejs.org/) instalado
-- O [back-end](https://github.com/fabriciabarbisan/back-cadastro-usuarios) rodando localmente (porta `3000`) ou o endereço de um back-end publicado
+- O [back-end](https://github.com/fabriciabarbisan/back_cadastro_usuarios) rodando localmente (porta `3000`) ou o endereço de um back-end publicado
 
 ### Passo a passo
 
